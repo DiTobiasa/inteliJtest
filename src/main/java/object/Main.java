@@ -1,4 +1,4 @@
-package object;
+/*package object;
 
 public class Main {
 
@@ -28,3 +28,6 @@ public class Main {
 
 
 }
+
+
+ */
