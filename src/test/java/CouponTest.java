@@ -2,6 +2,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.WebDriver;
 import page_object.MainPage;
 import utils.LocalDriverManager;
@@ -19,15 +21,18 @@ public class CouponTest {
         driver.get(getProperties().getProperty("home.page"));
     }
 
-    @Test
-    public void applyCouponTest() {
-        mainPage.selectProductFromListByName("Polo")
-                .addProductToCart();
+    @ParameterizedTest(name = "Buy product with name {0} and apply coupon {1}")
+    @CsvSource({"Belt,ACODEMY10OFF", "Album, ACODEMY20OFF"})
+    public void applyCouponTest(String productName, String couponCode) {
+        mainPage.selectProductFromListByName(productName)
+                .addProductToCart()
+                .openCartPage()
+                .applyCouponCode(couponCode);
     }
 
     @AfterEach
     public void tearDown() {
-        driver.quit();
+        LocalDriverManager.closeDriver();
     }
 }
 
