@@ -1,7 +1,6 @@
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.WebDriver;
@@ -21,13 +20,14 @@ public class CouponTest {
         driver.get(getProperties().getProperty("home.page"));
     }
 
-    @ParameterizedTest(name = "Buy product with name {0} and apply coupon {1}")
+    @ParameterizedTest(name = "Buy product with name {0} and apply coupon {1} and then remove it")
     @CsvSource({"Belt,ACODEMY10OFF", "Album, ACODEMY20OFF"})
-    public void applyCouponTest(String productName, String couponCode) {
+    public void applyCouponTestandRemoveTest(String productName, String couponCode) {
         mainPage.selectProductFromListByName(productName)
                 .addProductToCart()
                 .openCartPage()
-                .applyCouponCode(couponCode);
+                .applyCouponCode(couponCode)
+                .removeCoupon(couponCode);
     }
 
     @AfterEach
