@@ -10,7 +10,7 @@ import utils.LocalDriverManager;
 import static utils.PropertiesReader.getProperties;
 
 @Slf4j
-public class CouponTest {
+public class CouponCode {
 
     private final WebDriver driver = LocalDriverManager.getInstance();
     private final MainPage mainPage = new MainPage();
